@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="survey_kpi_form_view" model="ir.ui.view">
+        <field name="name">Survey KPI</field>
+        <field name="model">survey.kpi</field>
+        <field name="arch" type="xml">
+            <form string="Survey KPI">                                
+                <sheet string="child">
+                    <group>
+                        <field name="code"/>
+                        <field name="survey_kpi_group_id" options="{'no_create': True, 'no_open': True}"/>                             
+                        <field name="survey_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="survey_page_id" domain="[('survey_id', '=', survey_id)]" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="survey_question_id" domain="[('page_id', '=', survey_page_id)]" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="survey_label_id" domain="[('question_id_2', '=', survey_question_id)]" options="{'no_create': True, 'no_open': True}"/>                                                                                                                                                                         
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="survey_kpi_tree" model="ir.ui.view">
+        <field name="name">SMS Plantillas</field>
+        <field name="model">survey.kpi</field>            
+        <field name="arch" type="xml">
+            <tree string="Survey KPI"> 
+                <field name="code"/>
+                <field name="survey_kpi_group_id"/>
+                <field name="survey_id"/>
+            </tree>
+        </field>            
+    </record>
+    <record id="view_survey_kpi_search" model="ir.ui.view">
+        <field name="name">view_survey_kpi_search</field>
+        <field name="model">survey.kpi</field>
+        <field name="arch" type="xml">
+            <search string="Survey KPI">
+                <group expand="0" name="group_by" string="Agrupar por">
+                    <filter name="group_by_suryve_id" string="Surver" domain="[]" context="{'group_by' : 'survey_id'}"/>                       
+               </group>                    
+            </search>
+        </field>
+    </record>        
+    <record id="survey_kpi_action" model="ir.actions.act_window">
+        <field name="name">Survey KPI</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">survey.kpi</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="survey_kpi_tree"/>
+        <field name="search_view_id" ref="view_survey_kpi_search"/>                
+    </record>
+    <record id="survey_kpi_group_form_view" model="ir.ui.view">
+        <field name="name">Survey KPI Group</field>
+        <field name="model">survey.kpi.group</field>
+        <field name="arch" type="xml">
+            <form string="Survey KPI Group">                                
+                <sheet string="child">
+                    <group>                        
+                        <field name="name"/>                                                                                                                                                                                                 
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="survey_kpi_group_tree" model="ir.ui.view">
+        <field name="name">Survey Kpi Group</field>
+        <field name="model">survey.kpi.group</field>            
+        <field name="arch" type="xml">
+            <tree string="Survey KPI Group">
+                <field name="name"/>                
+            </tree>
+        </field>            
+    </record>
+    <record id="survey_kpi_group_action" model="ir.actions.act_window">
+        <field name="name">Survey KPI Group</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">survey.kpi.group</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="survey_kpi_group_tree"/>                
+    </record>     
+    <menuitem 
+        action="survey_kpi_action" 
+        name="Surve KPI"
+        id="menuitem_odoo_survey_kpi" 
+        parent="survey.menu_surveys_configuration"
+    />
+    <menuitem 
+        action="survey_kpi_group_action" 
+        name="Surve KPI Group"
+        id="menuitem_odoo_survey_kpi_group" 
+        parent="survey.menu_surveys_configuration"
+    />                    
+</odoo>

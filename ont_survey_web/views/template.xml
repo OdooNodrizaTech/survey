@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend_survey_oniad" name="survey_oniad_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/survey_oniad/static/src/js/global.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>
