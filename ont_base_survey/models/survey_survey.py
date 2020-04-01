@@ -109,6 +109,18 @@ class SurveySurvey(models.Model):
         if len(survey_survey_ids)>0:
             for survey_survey_id in survey_survey_ids:
                 survey_survey_id.send_survey_satisfaction_recurrent_phone()                        
+            
+    #get_phone_survey_surveys (reuse in Arelux)
+    @api.one
+    def get_phone_survey_surveys(self):
+        return self.env['survey.survey'].search(
+            [ 
+                ('active', '=', True),                
+                ('survey_type_origin', '=', 'none'),
+                ('survey_type', '=', 'phone'),
+                ('survey_subtype', '=', self.survey_subtype)                
+            ]
+        )
     
     @api.one    
     def send_survey_real_satisfaction_mail(self):
@@ -149,14 +161,7 @@ class SurveySurvey(models.Model):
         if len(survey_survey_ids)>0:
             for survey_survey_id in survey_survey_ids:                                
                 #phone
-                survey_survey_ids_phone = self.env['survey.survey'].search(
-                    [ 
-                        ('active', '=', True),                
-                        ('survey_type_origin', '=', 'none'),
-                        ('survey_type', '=', 'phone'),
-                        ('survey_subtype', '=', survey_survey_id.survey_subtype)                
-                    ]
-                )
+                survey_survey_ids_phone = survey_survey_id.get_phone_survey_surveys()                
                 if len(survey_survey_ids_phone)>0:
                     survey_survey_id_phone = survey_survey_ids_phone[0]                    
                     #expired results
@@ -208,14 +213,7 @@ class SurveySurvey(models.Model):
         if len(survey_survey_ids)>0:
             for survey_survey_id in survey_survey_ids:                                
                 #phone
-                survey_survey_ids_phone = self.env['survey.survey'].search(
-                    [ 
-                        ('active', '=', True),                
-                        ('survey_type_origin', '=', 'none'),
-                        ('survey_type', '=', 'phone'),
-                        ('survey_subtype', '=', survey_survey_id.survey_subtype)                
-                    ]
-                )
+                survey_survey_ids_phone = survey_survey_id.get_phone_survey_surveys()                
                 if len(survey_survey_ids_phone)>0:
                     survey_survey_id_phone = survey_survey_ids_phone[0]                    
                     #expired results
