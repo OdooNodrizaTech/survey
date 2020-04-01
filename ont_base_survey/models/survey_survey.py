@@ -76,12 +76,10 @@ class SurveySurvey(models.Model):
     
     @api.one    
     def send_survey_satisfaction_phone(self):
-        return False
+        return super(SurveySurvey, self).send_survey_satisfaction_phone()
     
     @api.multi    
     def cron_send_surveys_satisfaction_phone(self, cr=None, uid=False, context=None):
-        current_date = datetime.now(pytz.timezone('Europe/Madrid'))
-        
         survey_survey_ids = self.env['survey.survey'].search(
             [ 
                 ('active', '=', True),                
@@ -92,16 +90,14 @@ class SurveySurvey(models.Model):
         )
         if len(survey_survey_ids)>0:
             for survey_survey_id in survey_survey_ids:
-                super(SurveySurvey, self).send_survey_atisfaction_phone()    
+                survey_survey_id.send_survey_satisfaction_phone()    
     
     @api.one    
     def send_survey_satisfaction_recurrent_phone(self):
-        return False
+        return super(SurveySurvey, self).send_survey_satisfaction_recurrent_phone()
         
     @api.multi    
     def cron_send_surveys_satisfaction_recurrent_phone(self, cr=None, uid=False, context=None):
-        current_date = datetime.now(pytz.timezone('Europe/Madrid'))
-        
         survey_survey_ids = self.env['survey.survey'].search(
             [ 
                 ('active', '=', True),                
@@ -112,17 +108,17 @@ class SurveySurvey(models.Model):
         )
         if len(survey_survey_ids)>0:
             for survey_survey_id in survey_survey_ids:
-                super(SurveySurvey, self).send_survey_satisfaction_recurrent_phone()                        
+                survey_survey_id.send_survey_satisfaction_recurrent_phone()                        
     
     @api.one    
     def send_survey_real_satisfaction_mail(self):
         #Send by mail real
-        return False    
+        return super(SurveySurvey, self).send_survey_real_satisfaction_mail()
     
     @api.one    
     def send_survey_satisfaction_mail(self, survey_survey_input_expired_ids):
         #change other source to mail if conditions
-        return False
+        return super(SurveySurvey, self).send_survey_satisfaction_mail(survey_survey_input_expired_ids)
         
     @api.multi    
     def cron_send_surveys_satisfaction_mail(self, cr=None, uid=False, context=None):
@@ -139,7 +135,7 @@ class SurveySurvey(models.Model):
         if len(survey_survey_ids)>0:
             for survey_survey_id in survey_survey_ids:
                 #send_survey_real_satisfaction_mail
-                super(SurveySurvey, self).send_survey_real_satisfaction_mail()
+                survey_survey_id.send_survey_real_satisfaction_mail()
         #other origin                
         survey_survey_ids = self.env['survey.survey'].search(
             [ 
@@ -171,17 +167,17 @@ class SurveySurvey(models.Model):
                         ]
                     )
                     #send_survey_satisfaction_mail
-                    super(SurveySurvey, self).send_survey_satisfaction_mail(survey_survey_input_expired_ids)                        
+                    survey_survey_id.send_survey_satisfaction_mail(survey_survey_input_expired_ids)                        
         
     @api.one    
     def send_survey_real_satisfaction_recurrent_mail(self):
         #Send by mail real
-        return False
+        return super(SurveySurvey, self).send_survey_real_satisfaction_recurrent_mail()
     
     @api.one    
     def send_survey_satisfaction_recurrent_mail(self, survey_survey_input_expired_ids):
         #change other source to mail if conditions
-        return False
+        return super(SurveySurvey, self).send_survey_satisfaction_recurrent_mail(survey_survey_input_expired_ids)
     
     @api.multi    
     def cron_send_surveys_satisfaction_recurrent_mail(self, cr=None, uid=False, context=None):
@@ -198,7 +194,7 @@ class SurveySurvey(models.Model):
         if len(survey_survey_ids)>0:
             for survey_survey_id in survey_survey_ids:
                 #send_survey_real_satisfaction_recurrent_mail
-                super(SurveySurvey, self).send_survey_real_satisfaction_recurrent_mail()
+                survey_survey_id.send_survey_real_satisfaction_recurrent_mail()
         #other origin
         survey_survey_ids = self.env['survey.survey'].search(
             [ 
@@ -230,4 +226,4 @@ class SurveySurvey(models.Model):
                         ]
                     )
                     #send_survey_satisfaction_recurrent_mail
-                    super(SurveySurvey, self).send_survey_satisfaction_recurrent_mail(survey_survey_input_expired_ids)                    
+                    survey_survey_id.send_survey_satisfaction_recurrent_mail(survey_survey_input_expired_ids)                    

@@ -254,6 +254,7 @@ class SurveySurvey(models.Model):
     
     @api.one    
     def send_survey_satisfaction_phone(self):
+        current_date = datetime.now(pytz.timezone('Europe/Madrid'))
         #deadline
         deadline = False                
         if self.deadline_days>0:
@@ -285,7 +286,8 @@ class SurveySurvey(models.Model):
         return False
         
     @api.one    
-    def send_survey_satisfaction_recurrent_phone(self): 
+    def send_survey_satisfaction_recurrent_phone(self):
+        current_date = datetime.now(pytz.timezone('Europe/Madrid')) 
         #deadline
         deadline = False                
         if self.deadline_days>0:
