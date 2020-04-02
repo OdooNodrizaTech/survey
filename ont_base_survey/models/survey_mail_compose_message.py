@@ -12,11 +12,7 @@ _logger = logging.getLogger(__name__)
 
 class SurveyMailComposeMessage(models.TransientModel):
     _inherit = 'survey.mail.compose.message'
-    
-    @api.one    
-    def action_send_survey_mail_message_slack(self, survey_user_input):
-        return super(SurveyMailComposeMessage, self).action_send_survey_mail_message_slack(survey_user_input)
-            
+                
     @api.one    
     def send_partner_mails(self, partner_ids_orders, cr=None, uid=False, context=None):
         def create_survey_user_input(survey_survey, partner, order_id):
@@ -75,8 +71,7 @@ class SurveyMailComposeMessage(models.TransientModel):
                 'partner_ids': survey_user_input.partner_id.id and [(4, survey_user_input.partner_id.id)] or None                                                                                                                                                                       
             }
             mail_mail_obj = self.env['mail.mail'].sudo().create(mail_mail_vals)
-            mail_mail_obj.send()            
-            self.action_send_survey_mail_message_slack(survey_user_input)#Fix Slack
+            mail_mail_obj.send()
             
         
         survey_survey_ids = self.env['survey.survey'].search([('id', '=', str(self.survey_id.id))])
