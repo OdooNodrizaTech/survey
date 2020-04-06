@@ -6,7 +6,7 @@
     'website': 'https://nodrizatech.com/',
     'category': 'Tools',
     'license': 'AGPL-3',
-    'depends': ['base', 'ont_base_survey', 'oniad_root', 'survey'],
+    'depends': ['base', 'ont_base_survey', 'oniad_root', 'crm', 'crm_oniad', 'survey'],
     'data': [
         'views/survey_user_input.xml',
         'views/survey_survey.xml',

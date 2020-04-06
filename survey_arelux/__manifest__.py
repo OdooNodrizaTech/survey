@@ -6,7 +6,7 @@
     'website': 'https://nodrizatech.com/',
     'category': 'Tools',
     'license': 'AGPL-3',
-    'depends': ['base', 'ont_base_survey', 'sale', 'survey'],
+    'depends': ['base', 'ont_base_survey', 'crm', 'sale', 'survey', 'arelux_partner_questionnaire'],
     'data': [        
         'views/survey_user_input.xml',
         'views/survey_survey.xml',
