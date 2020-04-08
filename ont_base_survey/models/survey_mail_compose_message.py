@@ -12,7 +12,11 @@ _logger = logging.getLogger(__name__)
 
 class SurveyMailComposeMessage(models.TransientModel):
     _inherit = 'survey.mail.compose.message'
-                
+    
+    @api.one
+    def action_send_survey_mail_message_slack(self, survey_user_input):
+        return False
+                    
     @api.one    
     def send_partner_mails(self, partner_ids_orders, cr=None, uid=False, context=None):
         def create_survey_user_input(survey_survey, partner, order_id):
