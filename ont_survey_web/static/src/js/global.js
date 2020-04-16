@@ -1,4 +1,4 @@
-odoo.define('simcard_piavita.tree_view_button_survey_oniad', function (require){
+odoo.define('ont_survey_web.tree_view_button_survey_oniad', function (require){
 "use strict";
     var ListView = require('web.ListView');
     var Model = require('web.DataModel');
