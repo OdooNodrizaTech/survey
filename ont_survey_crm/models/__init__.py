@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
-import crm_lead
-import crm_lead_lost
+from . import crm_lead
+from . import crm_lead_lost 

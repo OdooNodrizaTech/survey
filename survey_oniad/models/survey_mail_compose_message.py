@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from openerp import _, api, exceptions, fields, models
+from odoo import api, exceptions, fields, models
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
 
-import urlparse
 import uuid
 import pytz
 

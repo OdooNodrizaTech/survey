@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
-from openerp import _, api, exceptions, fields, models
-from dateutil.relativedelta import relativedelta
+from odoo import api, exceptions, fields, models
 from datetime import datetime
 
-import urlparse
-import logging
-import uuid
 import pytz
 
+import logging
 _logger = logging.getLogger(__name__)
 
 class SurveySurvey(models.Model):
@@ -78,8 +75,8 @@ class SurveySurvey(models.Model):
     def send_survey_satisfaction_phone(self):
         return super(SurveySurvey, self).send_survey_satisfaction_phone()
     
-    @api.multi    
-    def cron_send_surveys_satisfaction_phone(self, cr=None, uid=False, context=None):
+    @api.model    
+    def cron_send_surveys_satisfaction_phone(self):
         survey_survey_ids = self.env['survey.survey'].search(
             [ 
                 ('active', '=', True),                
@@ -96,8 +93,8 @@ class SurveySurvey(models.Model):
     def send_survey_satisfaction_recurrent_phone(self):
         return super(SurveySurvey, self).send_survey_satisfaction_recurrent_phone()
         
-    @api.multi    
-    def cron_send_surveys_satisfaction_recurrent_phone(self, cr=None, uid=False, context=None):
+    @api.model    
+    def cron_send_surveys_satisfaction_recurrent_phone(self):
         survey_survey_ids = self.env['survey.survey'].search(
             [ 
                 ('active', '=', True),                
@@ -132,8 +129,8 @@ class SurveySurvey(models.Model):
         #change other source to mail if conditions
         return super(SurveySurvey, self).send_survey_satisfaction_mail(survey_survey_input_expired_ids)
         
-    @api.multi    
-    def cron_send_surveys_satisfaction_mail(self, cr=None, uid=False, context=None):
+    @api.model    
+    def cron_send_surveys_satisfaction_mail(self):
         current_date = datetime.now(pytz.timezone('Europe/Madrid'))
         survey_survey_ids = self.env['survey.survey'].search(
             [ 
@@ -184,8 +181,8 @@ class SurveySurvey(models.Model):
         #change other source to mail if conditions
         return super(SurveySurvey, self).send_survey_satisfaction_recurrent_mail(survey_survey_input_expired_ids)
     
-    @api.multi    
-    def cron_send_surveys_satisfaction_recurrent_mail(self, cr=None, uid=False, context=None):
+    @api.model    
+    def cron_send_surveys_satisfaction_recurrent_mail(self):
         current_date = datetime.now(pytz.timezone('Europe/Madrid'))
         survey_survey_ids = self.env['survey.survey'].search(
             [ 

@@ -44,8 +44,8 @@ class SurveyKpi(models.Model):
         string='Survey Label'
     )
     
-    @api.multi    
-    def cron_update_survey_user_input_line(self, cr=None, uid=False, context=None):
+    @api.model    
+    def cron_update_survey_user_input_line(self):
         survey_kpi_ids = self.env['survey.kpi'].search([('id', '>', 0)])
         if len(survey_kpi_ids)>0:
             for survey_kpi_id in survey_kpi_ids:
@@ -70,7 +70,6 @@ class SurveyKpi(models.Model):
                             ('survey_kpi_id', '=', False)
                          ]
                     )
-                
                 #assign_survey_kpi_id
                 if len(survey_user_input_line_ids)>0:
                     for survey_user_input_line_id in survey_user_input_line_ids:

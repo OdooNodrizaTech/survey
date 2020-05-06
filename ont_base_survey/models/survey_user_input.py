@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
-# © 2013 Yannick Vaucher (Camptocamp SA)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from openerp import _, api, exceptions, fields, models
+from odoo import  api, exceptions, fields, models
 from openerp.http import request
-from dateutil.relativedelta import relativedelta
 from datetime import datetime
 
 import pytz
@@ -88,8 +85,8 @@ class SurveyUserinput(models.Model):
         for item in self:
             item.partner_id_mobile = item.partner_id.mobile            
     
-    @api.multi    
-    def cron_change_to_expired(self, cr=None, uid=False, context=None):
+    @api.model    
+    def cron_change_to_expired(self):
         current_date = datetime.now(pytz.timezone('Europe/Madrid'))
         
         survey_user_input_ids = self.env['survey.user_input'].search(
