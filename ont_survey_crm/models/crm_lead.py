@@ -22,10 +22,6 @@ class CrmLead(models.Model):
                         raise Warning("Es necesario completar el why not para poder dar por perdido el flujo")                
                             
         if allow_action==True:
-            for lead_obj in self:
-                if lead_obj.date_action!=False:
-                    lead_obj.date_action = False
-            
             return super(CrmLead, self).action_set_lost()
 
     @api.model
