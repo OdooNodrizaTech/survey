@@ -106,7 +106,7 @@ class SurveyMailComposeMessage(models.TransientModel):
                 'partner_ids': survey_user_input.partner_id.id and [(4, survey_user_input.partner_id.id)] or None                                                                                                                                                                       
             }
             mail_mail_obj = self.env['mail.mail'].sudo().create(mail_mail_vals)
-            mail_mail_obj.send()            
+            mail_mail_obj.send()                        
             self.action_send_survey_mail_message_slack(survey_user_input)#Fix Slack
             
         
