@@ -4,12 +4,12 @@
         <field name="model">survey.question</field>
         <field name="inherit_id" ref="survey.survey_question_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//notebook/page/field[@name='labels_ids']/tree/field[@name='value']" position="after">  
+            <xpath expr="//notebook/page/field[@name='labels_ids']/tree/field[@name='value']" position="after">
                 <field name="internal_value"  />
             </xpath>
-            <xpath expr="//notebook/page/field[@name='labels_ids_2']/tree/field[@name='value']" position="after">  
+            <xpath expr="//notebook/page/field[@name='labels_ids_2']/tree/field[@name='value']" position="after">
                 <field name="internal_value"  />
-            </xpath>            
+            </xpath>
         </field>
-    </record>                                     
+    </record>
 </odoo>

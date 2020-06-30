@@ -9,25 +9,25 @@
                 <field name="survey_type_origin" />
                 <field name="survey_type" />
                 <field name="survey_subtype" />
-                <field name="survey_frequence" />                                
+                <field name="survey_frequence" />
             </field>
         </field>
-    </record> 
+    </record>
     <record id="ont_base_survey_survey_form" model="ir.ui.view">
         <field name="model">survey.survey</field>
         <field name="inherit_id" ref="survey.survey_form"/>
         <field name="arch" type="xml">
             <field name="quizz_mode" position="after">
                 <field name="active" />
-                <field name="internal_name" />                
+                <field name="internal_name" />
                 <field name="survey_type_origin" />
                 <field name="survey_type" />
                 <field name="survey_subtype" />
-                <field name="survey_frequence" />                                                                
+                <field name="survey_frequence" />
                 <field name="deadline_days" />
                 <field name="automation_difference_days" attrs="{'invisible': [('survey_type_origin','!=','none')]}" />
-                <field name="mail_template_id" attrs="{'invisible': [('survey_type','!=','mail')]}" options="{'no_create': True, 'no_open': True}" />                                
-            </field>            
+                <field name="mail_template_id" attrs="{'invisible': [('survey_type','!=','mail')]}" options="{'no_create': True, 'no_open': True}" />
+            </field>
         </field>
-    </record>      
+    </record>
 </odoo>

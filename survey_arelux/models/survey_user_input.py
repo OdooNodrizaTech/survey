@@ -14,11 +14,7 @@ _logger = logging.getLogger(__name__)
 class SurveyUserinput(models.Model):
     _inherit = 'survey.user_input'
     _transient = False
-    
-    order_id = fields.Many2one(
-        comodel_name='sale.order',        
-        string='Pto'
-    )
+
     installer_id = fields.Many2one(
         comodel_name='res.partner',
         domain="[('installer', '=', True)]",        
