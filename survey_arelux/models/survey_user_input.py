@@ -7,11 +7,7 @@ _logger = logging.getLogger(__name__)
 class SurveyUserinput(models.Model):
     _inherit = 'survey.user_input'
     _transient = False
-    
-    order_id = fields.Many2one(
-        comodel_name='sale.order',        
-        string='Pto'
-    )
+
     installer_id = fields.Many2one(
         comodel_name='res.partner',
         domain="[('installer', '=', True)]",        
@@ -33,7 +29,7 @@ class SurveyUserinput(models.Model):
         if self.lead_id.id>0:
             for order_id in self.lead_id.order_ids:
                 if order_id.amount_total>0:
-                    if order_id.installer_id.id!=False:
+                    if order_id.installer_id.id>0:
                         self.installer_id = order_id.installer_id.id
         #return                  
         return return_object                                                              

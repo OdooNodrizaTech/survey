@@ -5,7 +5,6 @@
         <field name="inherit_id" ref="survey.survey_user_input_tree"/>
         <field name="arch" type="xml">
             <field name="state" position="before">
-                <field name="order_id" />
                 <field name="installer_id" />                
             </field>
         </field>
@@ -15,7 +14,6 @@
         <field name="inherit_id" ref="survey.survey_user_input_form"/>
         <field name="arch" type="xml">
             <field name="test_entry" position="before">
-                <field name="order_id" />
                 <field name="installer_id" />                
             </field>            
         </field>

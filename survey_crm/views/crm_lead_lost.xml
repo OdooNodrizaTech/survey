@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="view_crm_lead_lost_form_survey_oniad" model="ir.ui.view">
+    <record id="survey_crm_crm_lead_lost_view_form" model="ir.ui.view">
+        <field name="name">survey_crm_crm_lead_lost_view_form</field>
         <field name="model">crm.lead.lost</field>
         <field name="inherit_id" ref="crm.crm_lead_lost_view_form"/>
         <field name="arch" type="xml">
@@ -8,5 +9,5 @@
                 <field name="survey_url" widget="url" readonly="1" />
             </field>
         </field>
-    </record>   
+    </record>
 </odoo>
