@@ -11,11 +11,11 @@ class SurveyUserinput(models.Model):
 
     lead_id = fields.Many2one(
         comodel_name='crm.lead',
-        string='Flujo de ventas'
+        string='Lead'
     )
     order_id = fields.Many2one(
         comodel_name='sale.order',
-        string='Pto'
+        string='Order'
     )
 
     @api.model

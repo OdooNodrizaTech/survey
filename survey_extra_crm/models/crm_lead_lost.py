@@ -9,7 +9,7 @@ class CrmLeadLost(models.TransientModel):
     _inherit = 'crm.lead.lost'
 
     survey_url = fields.Char(
-        string='Encuesta',
+        string='Survey',
         store=False
     )
 

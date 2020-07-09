@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import api, exceptions, fields, models
+from odoo import api, exceptions, fields, models, _
 from odoo.exceptions import Warning
 
 import logging
@@ -26,7 +26,7 @@ class CrmLead(models.Model):
                     )
                     if len(survey_user_input_ids) == 0:
                         allow_action = False
-                        raise Warning("Es necesario completar el why not para poder dar por perdido el flujo")
+                        raise Warning(_('It is necessary to complete the why not to be able to give up the opportunity'))
 
         if allow_action == True:
             return super(CrmLead, self).action_set_lost()
