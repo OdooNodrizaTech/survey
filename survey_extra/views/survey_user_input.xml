@@ -36,6 +36,7 @@
             <filter name="completed" position="before">
                 <field name="user_id"/>
                 <filter string="Mis respuestas" name="user_id_filter" domain="[('user_id','=',uid)]" />
+                <filter string="Mis respuestas llamada sin hacer" name="user_id_filter" domain="[('user_id','=',uid),('survey_id.survey_type', '=', 'phone'),('state', 'in', ('new', 'skip'))]"/>
                 <separator/>
                 <filter name="survey_id_survey_type_phone" string="Encuestas Llamada" domain="[('survey_id.survey_type', '=', 'phone')]"/>
                 <filter name="survey_id_survey_type_mail" string="Encuestas Email" domain="[('survey_id.survey_type', '=', 'mail')]"/>
