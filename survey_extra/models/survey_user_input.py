@@ -19,9 +19,10 @@ class SurveyUserinput(models.Model):
         comodel_name='res.users',
         string='Comercial hecho'
     )
-    survey_id_survey_type = fields.Char(
-        compute='_survey_id_survey_type',
+    survey_id_survey_type = fields.Selection(
         string="Tipo de encuesta",
+        related='survey_id.survey_type',
+        store=False,
         readonly=True
     )
     survey_url = fields.Char(
@@ -30,36 +31,23 @@ class SurveyUserinput(models.Model):
         readonly=True
     )
     partner_id_phone = fields.Char(
-        compute='_partner_id_phone',
         string="Telefono",
+        related='partner_id.phone',
+        store=False,
         readonly=True
     )
     partner_id_mobile = fields.Char(
-        compute='_partner_id_mobile',
         string="Movil",
+        related='partner_id.mobile',
+        store=False,
         readonly=True
     )
-
-    @api.depends('survey_id')
-    def _survey_id_survey_type(self):
-        for item in self:
-            item.survey_id_survey_type = item.survey_id.survey_type
 
     @api.depends('survey_id')
     def _survey_url(self):
         web_base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         for item in self:
             item.survey_url = str(web_base_url) + '/survey/fill/' + str(item.survey_id.id) + '/' + str(item.token)
-
-    @api.depends('partner_id')
-    def _partner_id_phone(self):
-        for item in self:
-            item.partner_id_phone = item.partner_id.phone
-
-    @api.depends('partner_id')
-    def _partner_id_mobile(self):
-        for item in self:
-            item.partner_id_mobile = item.partner_id.mobile
 
     @api.model
     def action_boton_pedir_llamada(self):
