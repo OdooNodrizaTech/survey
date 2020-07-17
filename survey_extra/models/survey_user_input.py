@@ -56,7 +56,7 @@ class SurveyUserinput(models.Model):
             'error': "No tienes respuesta de llamada para poder asignarte"
         }
         # survey_user_input_ids
-        survey_user_input_ids = self.env['survey.user_input'].search(
+        survey_user_input_ids = self.env['survey.user_input'].sudo().search(
             [
                 ('type', '=', 'manually'),
                 ('survey_id.survey_type', '=', 'phone'),
