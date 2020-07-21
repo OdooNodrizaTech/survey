@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+
     <record id="survey_user_input_oniad_tree" model="ir.ui.view">
         <field name="model">survey.user_input</field>
         <field name="inherit_id" ref="survey.survey_user_input_tree"/>
@@ -10,6 +11,7 @@
             </field>
         </field>
     </record>
+
     <record id="survey_user_input_oniad_form" model="ir.ui.view">
         <field name="model">survey.user_input</field>
         <field name="inherit_id" ref="survey.survey_user_input_form"/>
@@ -27,6 +29,7 @@
             </field>
         </field>
     </record>
+
     <record id="survey_oniad_survey_user_input_search" model="ir.ui.view">
         <field name="name">survey_oniad_survey_user_input_search</field>
         <field name="model">survey.user_input</field>
@@ -44,4 +47,5 @@
             </filter>
         </field>
     </record>
+
 </odoo>

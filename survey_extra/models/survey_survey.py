@@ -1,74 +1,70 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import api, exceptions, fields, models
 from datetime import datetime
 
 import pytz
 
-import logging
-_logger = logging.getLogger(__name__)
-
 class SurveySurvey(models.Model):
     _inherit = 'survey.survey'
     _rec_name = 'internal_name'
 
     active = fields.Boolean(
-        string='Activo'
+        string='Active'
     )
     internal_name = fields.Char(
-        string='Nombre interno'
+        string='Internal name'
     )
     survey_type_origin = fields.Selection(
         [
-            ('none', 'Ninguna'),
-            ('phone', 'Telefono')
+            ('none', 'None'),
+            ('phone', 'Phone')
         ],
         size=15,
-        string='Origen de encuesta',
+        string='Survey type origin',
         default='none'
     )
     survey_type = fields.Selection(
         [
-            ('mail', 'Email'),
-            ('phone', 'Telefono'),
+            ('mail', 'Mail'),
+            ('phone', 'Phone'),
             ('popup', 'Popup'),
-            ('other', 'Otra'),
+            ('other', 'Other'),
         ],
         size=15,
-        string='Tipo de encuesta',
+        string='Survey type',
         default='mail'
     )
     survey_subtype = fields.Selection(
         [
-            ('satisfaction', 'Satisfaccion'),
-            ('satisfaction_recurrent', 'Satisfaccion recurrente'),
+            ('satisfaction', 'Satisfaction'),
+            ('satisfaction_recurrent', 'Recurrent satisfaction'),
             ('why_not', 'Why not'),
             ('marketing', 'Marketing'),
         ],
         size=15,
-        string='Subtipo de encuesta',
+        string='Survey subtype',
         default='satisfaction'
     )
     survey_frequence = fields.Selection(
         [
-            ('custom', 'Personalizada'),
-            ('week', 'Semanal'),
-            ('month', 'Mensual'),
-            ('year', 'Anual'),
+            ('custom', 'Custom'),
+            ('week', 'Week'),
+            ('month', 'Month'),
+            ('year', 'Year'),
         ],
         size=15,
-        string='Frecuencia de la encuesta',
+        string='Survey frequence',
         default='custom'
     )
     deadline_days = fields.Integer(
-        string='Fecha limite dias',
+        string='Deadline days',
     )
     automation_difference_days = fields.Integer(
-        string='Diferencia de dias de automatizacion',
+        string='Automation difference days',
     )
     mail_template_id = fields.Many2one(
         'mail.template',
-        string='Plantilla de email',
+        string='Mail template',
         domain=[('model_id.model', '=', 'survey.survey')],
     )
 
@@ -86,7 +82,7 @@ class SurveySurvey(models.Model):
                 ('survey_subtype', '=', 'satisfaction')
             ]
         )
-        if len(survey_survey_ids) > 0:
+        if survey_survey_ids:
             for survey_survey_id in survey_survey_ids:
                 survey_survey_id.send_survey_satisfaction_phone()
 
@@ -104,7 +100,7 @@ class SurveySurvey(models.Model):
                 ('survey_subtype', '=', 'satisfaction_recurrent')
             ]
         )
-        if len(survey_survey_ids) > 0:
+        if survey_survey_ids:
             for survey_survey_id in survey_survey_ids:
                 survey_survey_id.send_survey_satisfaction_recurrent_phone()
 
@@ -143,7 +139,7 @@ class SurveySurvey(models.Model):
                 ('mail_template_id', '!=', False)
             ]
         )
-        if len(survey_survey_ids) > 0:
+        if survey_survey_ids:
             for survey_survey_id in survey_survey_ids:
                 # send_survey_real_satisfaction_mail
                 survey_survey_id.send_survey_real_satisfaction_mail()
@@ -157,11 +153,11 @@ class SurveySurvey(models.Model):
                 ('mail_template_id', '!=', False)
             ]
         )
-        if len(survey_survey_ids) > 0:
+        if survey_survey_ids:
             for survey_survey_id in survey_survey_ids:
                 # phone
                 survey_survey_ids_phone = survey_survey_id.get_phone_survey_surveys()
-                if len(survey_survey_ids_phone) > 0:
+                if survey_survey_ids_phone:
                     survey_survey_id_phone = survey_survey_ids_phone[0]
                     # expired results
                     survey_survey_input_expired_ids = self.env['survey.user_input'].search(
@@ -195,7 +191,7 @@ class SurveySurvey(models.Model):
                 ('mail_template_id', '!=', False)
             ]
         )
-        if len(survey_survey_ids) > 0:
+        if survey_survey_ids:
             for survey_survey_id in survey_survey_ids:
                 # send_survey_real_satisfaction_recurrent_mail
                 survey_survey_id.send_survey_real_satisfaction_recurrent_mail()
@@ -209,11 +205,11 @@ class SurveySurvey(models.Model):
                 ('mail_template_id', '!=', False)
             ]
         )
-        if len(survey_survey_ids) > 0:
+        if survey_survey_ids:
             for survey_survey_id in survey_survey_ids:
                 # phone
                 survey_survey_ids_phone = survey_survey_id.get_phone_survey_surveys()
-                if len(survey_survey_ids_phone) > 0:
+                if survey_survey_ids_phone:
                     survey_survey_id_phone = survey_survey_ids_phone[0]
                     # expired results
                     survey_survey_input_expired_ids = self.env['survey.user_input'].search(

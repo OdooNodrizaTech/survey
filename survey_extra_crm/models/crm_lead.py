@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import api, exceptions, fields, models, _
 from odoo.exceptions import Warning
@@ -14,7 +13,7 @@ class CrmLead(models.Model):
         allow_action = True
         for lead_obj in self:
             allow_action = True
-            if lead_obj.type == 'opportunity' and lead_obj.partner_id.id > 0:
+            if lead_obj.type == 'opportunity' and lead_obj.partner_id:
                 survey_id = lead_obj.get_survey_id()
                 if survey_id > 0:
                     survey_user_input_ids = self.env['survey.user_input'].search(
@@ -41,8 +40,7 @@ class CrmLead(models.Model):
                 ('active', '=', True)
             ]
         )
-        if len(survey_survey_ids) > 0:
-            survey_survey_id = survey_survey_ids[0]
-            survey_id = survey_survey_id.id
+        if survey_survey_ids:
+            survey_id = survey_survey_ids[0].id
         #return
         return survey_id

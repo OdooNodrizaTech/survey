@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import api, exceptions, fields, models
 from openerp.http import request
@@ -26,10 +25,10 @@ class SurveyUserinput(models.Model):
             lead_id_get = str(request.httprequest.args.get('lead_id'))
             if lead_id_get != "None":
                 return_object.lead_id = int(lead_id_get)
-                if return_object.lead_id.id>0:
+                if return_object.lead_id:
                     return_object.partner_id = return_object.lead_id.partner_id.id
                     #user_id
-                    if return_object.lead_id.user_id.id>0:
+                    if return_object.lead_id.user_id:
                         return_object.user_id = return_object.lead_id.user_id
         #return
         return return_object
@@ -40,11 +39,11 @@ class SurveyUserinput(models.Model):
         if vals.get('state') == 'done':
             for item in self:
                 if item.date_done == False:
-                    if item.lead_id.id>0:
-                        if item.lead_id.user_id.id>0:
+                    if item.lead_id:
+                        if item.lead_id.user_id:
                             vals['user_id'] = item.lead_id.user_id.id
-                    elif item.order_id.id>0:
-                        if item.order_id.user_id.id>0:
+                    elif item.order_id:
+                        if item.order_id.user_id:
                             vals['user_id'] = item.order_id.user_id.id
             # user_id_done
             context = self._context

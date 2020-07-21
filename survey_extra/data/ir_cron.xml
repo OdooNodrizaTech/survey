@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
+
     <record id="cron_send_surveys_satisfaction_mail" forcecreate="True" model="ir.cron">
         <field name="name">Send Surveys Satisfaction Mail</field>
         <field name="active" eval="False"/>
@@ -12,6 +13,7 @@
         <field name="state">code</field>
         <field name="code">model.cron_send_surveys_satisfaction_mail()</field>
     </record>
+
     <record id="cron_send_surveys_satisfaction_phone" forcecreate="True" model="ir.cron">
         <field name="name">Send Surveys Satisfaction Phone</field>
         <field name="active" eval="False"/>
@@ -24,6 +26,7 @@
         <field name="state">code</field>
         <field name="code">model.cron_send_surveys_satisfaction_phone()</field>
     </record>
+
     <record id="cron_send_surveys_satisfaction_recurrent_phone" forcecreate="True" model="ir.cron">
         <field name="name">Send Surveys Satisfaction Phone</field>
         <field name="active" eval="False"/>
@@ -36,6 +39,7 @@
         <field name="state">code</field>
         <field name="code">model.cron_send_surveys_satisfaction_recurrent_phone()</field>
     </record>
+
     <record id="cron_send_surveys_satisfaction_recurrent_mail" forcecreate="True" model="ir.cron">
         <field name="name">Send Surveys Satisfaction Phone</field>
         <field name="active" eval="False"/>
@@ -48,4 +52,5 @@
         <field name="state">code</field>
         <field name="code">model.cron_send_surveys_satisfaction_recurrent_mail()</field>
     </record>
+
 </odoo>

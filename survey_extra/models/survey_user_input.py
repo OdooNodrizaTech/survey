@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import api, exceptions, fields, models
+
+from odoo import api, fields, models, _
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -9,18 +9,18 @@ class SurveyUserinput(models.Model):
     _inherit = 'survey.user_input'
 
     date_done = fields.Datetime(
-        string="Fecha fin"
+        string="Date done"
     )
     user_id = fields.Many2one(
         comodel_name='res.users',
-        string='Comercial'
+        string='User id'
     )
     user_id_done = fields.Many2one(
         comodel_name='res.users',
-        string='Comercial hecho'
+        string='User id done'
     )
     survey_id_survey_type = fields.Selection(
-        string="Tipo de encuesta",
+        string="Survey type",
         related='survey_id.survey_type',
         store=False,
         readonly=True
@@ -31,13 +31,13 @@ class SurveyUserinput(models.Model):
         readonly=True
     )
     partner_id_phone = fields.Char(
-        string="Telefono",
+        string="Phone",
         related='partner_id.phone',
         store=False,
         readonly=True
     )
     partner_id_mobile = fields.Char(
-        string="Movil",
+        string="Mobile",
         related='partner_id.mobile',
         store=False,
         readonly=True
@@ -45,15 +45,18 @@ class SurveyUserinput(models.Model):
 
     @api.depends('survey_id')
     def _survey_url(self):
-        web_base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         for item in self:
-            item.survey_url = str(web_base_url) + '/survey/fill/' + str(item.survey_id.id) + '/' + str(item.token)
+            item.survey_url = '%s/survey/fill/%s/%%s' % (
+                self.env['ir.config_parameter'].sudo().get_param('web.base.url'),
+                item.survey_id.id,
+                item.token
+            )
 
     @api.model
     def action_boton_pedir_llamada(self):
         response = {
             'errors': True,
-            'error': "No tienes respuesta de llamada para poder asignarte"
+            'error': _("You don't have a call answer to be assigned")
         }
         # survey_user_input_ids
         survey_user_input_ids = self.env['survey.user_input'].sudo().search(
@@ -66,12 +69,12 @@ class SurveyUserinput(models.Model):
             ],
             order='date_create asc'
         )
-        if len(survey_user_input_ids) > 0:
+        if survey_user_input_ids:
             survey_user_input_id = survey_user_input_ids[0]
             survey_user_input_id.user_id = self._uid
 
             response['errors'] = False
-            # return
+        # return
         return response
 
     @api.multi

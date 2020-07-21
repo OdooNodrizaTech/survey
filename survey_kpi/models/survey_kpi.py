@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import api, fields, models
 
@@ -8,20 +7,10 @@ _logger = logging.getLogger(__name__)
 class SurveyKpi(models.Model):
     _name = 'survey.kpi'
     _description = 'Survey Kpi'
-    
-    name = fields.Char(        
-        compute='_get_name',
-        string='Nombre',
-        store=False
-    )
-    
-    @api.one        
-    def _get_name(self):            
-        for obj in self:
-            obj.name = obj.code
-            
+    _rec_name = 'code'
+
     code = fields.Char(        
-        string='Codigo', 
+        string='Code',
     )
     survey_kpi_group_id = fields.Many2one(
         comodel_name='survey.kpi.group',
@@ -48,9 +37,9 @@ class SurveyKpi(models.Model):
     @api.model    
     def cron_update_survey_user_input_line(self):
         survey_kpi_ids = self.env['survey.kpi'].search([('id', '>', 0)])
-        if len(survey_kpi_ids)>0:
+        if survey_kpi_ids:
             for survey_kpi_id in survey_kpi_ids:
-                if survey_kpi_id.survey_label_id.id>0:
+                if survey_kpi_id.survey_label_id:
                     survey_user_input_line_ids = self.env['survey.user_input_line'].search(
                         [                            
                             ('user_input_id.test_entry', '=', False),
@@ -71,7 +60,7 @@ class SurveyKpi(models.Model):
                             ('survey_kpi_id', '=', False)
                          ]
                     )
-                #assign_survey_kpi_id
-                if len(survey_user_input_line_ids)>0:
+                # assign_survey_kpi_id
+                if survey_user_input_line_ids:
                     for survey_user_input_line_id in survey_user_input_line_ids:
                         survey_user_input_line_id.survey_kpi_id = survey_kpi_id.id                                                                                                       

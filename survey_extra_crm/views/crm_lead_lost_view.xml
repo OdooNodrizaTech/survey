@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+
     <record id="survey_extra_crm_crm_lead_lost_view_form" model="ir.ui.view">
         <field name="name">survey_extra_crm_crm_lead_lost_view_form</field>
         <field name="model">crm.lead.lost</field>
@@ -10,4 +11,5 @@
             </field>
         </field>
     </record>
+
 </odoo>

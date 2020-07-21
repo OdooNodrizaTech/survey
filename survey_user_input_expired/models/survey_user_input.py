@@ -14,13 +14,13 @@ class SurveyUserinput(models.Model):
 
     state = fields.Selection(
         [
-            ('new', 'Sin comenzar aun'),
-            ('skip', 'Parcialmente completado'),
-            ('done', 'Completado'),
-            ('expired', 'Caducado'),
+            ('new', 'New'),
+            ('skip', 'Skip'),
+            ('done', 'Done'),
+            ('expired', 'Expired'),
         ],
         default='new',
-        string='Estado',
+        string='State',
         readonly=True
     )
 
@@ -35,6 +35,6 @@ class SurveyUserinput(models.Model):
                 ('state', 'not in', ('done', 'expired'))
             ]
         )
-        if len(survey_user_input_ids) > 0:
+        if survey_user_input_ids:
             for survey_user_input_id in survey_user_input_ids:
                 survey_user_input_id.state = 'expired'

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import api, exceptions, fields, models
 from dateutil.relativedelta import relativedelta
@@ -6,9 +5,6 @@ from datetime import datetime
 
 import uuid
 import pytz
-
-import logging
-_logger = logging.getLogger(__name__)
 
 class SurveyMailComposeMessage(models.TransientModel):
     _inherit = 'survey.mail.compose.message'
@@ -33,7 +29,7 @@ class SurveyMailComposeMessage(models.TransientModel):
 
             token = uuid.uuid4().__str__()
             # create response with token
-            survey_user_input_vals = {
+            vals = {
                 'survey_id': survey_survey.id,
                 'date_create': datetime.now(),
                 'type': 'link',
@@ -49,9 +45,9 @@ class SurveyMailComposeMessage(models.TransientModel):
             if survey_survey.deadline_days > 0:
                 current_date = datetime.now(pytz.timezone('Europe/Madrid'))
                 deadline = current_date + relativedelta(days=survey_survey.deadline_days)
-                survey_user_input_vals['deadline'] = deadline
+                vals['deadline'] = deadline
             # survey_user_input_obj
-            survey_user_input_obj = self.env['survey.user_input'].sudo().create(survey_user_input_vals)
+            survey_user_input_obj = self.env['survey.user_input'].sudo().create(vals)
             return survey_user_input_obj
 
         def create_response_and_send_mail(survey_mail_compose_message, survey_user_input):
