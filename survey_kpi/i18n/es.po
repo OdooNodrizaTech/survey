@@ -1,0 +1,154 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* survey_kpi
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0-20200601\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-21 10:36+0000\n"
+"PO-Revision-Date: 2020-07-21 10:36+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: survey_kpi
+#: model_terms:ir.ui.view,arch_db:survey_kpi.view_survey_kpi_search
+msgid "Agrupar por"
+msgstr ""
+
+#. module: survey_kpi
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi__code
+msgid "Code"
+msgstr "Código"
+
+#. module: survey_kpi
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi__create_uid
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi_group__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: survey_kpi
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi__create_date
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi_group__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: survey_kpi
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi__display_name
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi_group__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: survey_kpi
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi__id
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi_group__id
+msgid "ID"
+msgstr ""
+
+#. module: survey_kpi
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi____last_update
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi_group____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: survey_kpi
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi__write_uid
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi_group__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: survey_kpi
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi__write_date
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi_group__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: survey_kpi
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi_group__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: survey_kpi
+#: model:ir.ui.menu,name:survey_kpi.menuitem_odoo_survey_kpi
+msgid "Surve KPI"
+msgstr ""
+
+#. module: survey_kpi
+#: model:ir.ui.menu,name:survey_kpi.menuitem_odoo_survey_kpi_group
+msgid "Surve KPI Group"
+msgstr ""
+
+#. module: survey_kpi
+#: model_terms:ir.ui.view,arch_db:survey_kpi.view_survey_kpi_search
+msgid "Surver"
+msgstr "Encuesta"
+
+#. module: survey_kpi
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi__survey_id
+msgid "Survey"
+msgstr "Planificación"
+
+#. module: survey_kpi
+#: model:ir.actions.act_window,name:survey_kpi.survey_kpi_action
+#: model_terms:ir.ui.view,arch_db:survey_kpi.survey_kpi_form_view
+#: model_terms:ir.ui.view,arch_db:survey_kpi.survey_kpi_tree
+#: model_terms:ir.ui.view,arch_db:survey_kpi.view_survey_kpi_search
+msgid "Survey KPI"
+msgstr ""
+
+#. module: survey_kpi
+#: model:ir.actions.act_window,name:survey_kpi.survey_kpi_group_action
+#: model_terms:ir.ui.view,arch_db:survey_kpi.survey_kpi_group_form_view
+#: model_terms:ir.ui.view,arch_db:survey_kpi.survey_kpi_group_tree
+msgid "Survey KPI Group"
+msgstr ""
+
+#. module: survey_kpi
+#: model:ir.model,name:survey_kpi.model_survey_kpi
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_user_input_line__survey_kpi_id
+msgid "Survey Kpi"
+msgstr ""
+
+#. module: survey_kpi
+#: model:ir.model,name:survey_kpi.model_survey_kpi_group
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi__survey_kpi_group_id
+msgid "Survey Kpi Group"
+msgstr ""
+
+#. module: survey_kpi
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi__survey_label_id
+msgid "Survey Label"
+msgstr "Etiqueta de la encuesta"
+
+#. module: survey_kpi
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi__survey_page_id
+msgid "Survey Page"
+msgstr "Página de la encuesta"
+
+#. module: survey_kpi
+#: model:ir.model.fields,field_description:survey_kpi.field_survey_kpi__survey_question_id
+msgid "Survey Question"
+msgstr "Pregunta de la encuesta"
+
+#. module: survey_kpi
+#: model:ir.model,name:survey_kpi.model_survey_user_input_line
+msgid "Survey User Input Line"
+msgstr "Línea de entrada de usuario de la encuesta"
+
+#. module: survey_kpi
+#: model:ir.actions.server,name:survey_kpi.cron_update_survey_user_input_line_ir_actions_server
+#: model:ir.cron,cron_name:survey_kpi.cron_update_survey_user_input_line
+#: model:ir.cron,name:survey_kpi.cron_update_survey_user_input_line
+msgid "Update Survey User Input Line"
+msgstr ""
+
+#. module: survey_kpi
+#: model_terms:ir.ui.view,arch_db:survey_kpi.survey_kpi_form_view
+#: model_terms:ir.ui.view,arch_db:survey_kpi.survey_kpi_group_form_view
+msgid "child"
+msgstr ""
+
