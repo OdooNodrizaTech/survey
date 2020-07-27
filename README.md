@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/OdooNodrizaTech/survey.svg?branch=12.0)](https://travis-ci.org/OdooNodrizaTech/survey)
+[![Coverage Status](https://coveralls.io/repos/OdooNodrizaTech/survey/badge.svg?branch=12.0)](https://coveralls.io/r/OdooNodrizaTech/survey?branch=12.0)
+
 survey
 =========
 Módulos relacionados con Encuestas
