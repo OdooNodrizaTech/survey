@@ -1,5 +1,4 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-import odoo
 from odoo.http import request
 import odoo.addons.survey.controllers.main as main
 
