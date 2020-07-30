@@ -9,4 +9,4 @@ class SurveyUserInputLine(models.Model):
     survey_kpi_id = fields.Many2one(
         comodel_name='survey.kpi',
         string='Survey Kpi'
-    )                                                                        
+    )

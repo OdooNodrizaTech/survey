@@ -1,8 +1,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import api, fields, models
 
-import logging
-_logger = logging.getLogger(__name__)
 
 class SurveyKpi(models.Model):
     _name = 'survey.kpi'
@@ -36,11 +34,11 @@ class SurveyKpi(models.Model):
     
     @api.model    
     def cron_update_survey_user_input_line(self):
-        survey_kpi_ids = self.env['survey.kpi'].search([('id', '>', 0)])
-        if survey_kpi_ids:
-            for survey_kpi_id in survey_kpi_ids:
-                if survey_kpi_id.survey_label_id:
-                    survey_user_input_line_ids = self.env['survey.user_input_line'].search(
+        kpi_ids = self.env['survey.kpi'].search([('id', '>', 0)])
+        if kpi_ids:
+            for kpi_id in kpi_ids:
+                if kpi_id.survey_label_id:
+                    user_input_line_ids = self.env['survey.user_input_line'].search(
                         [                            
                             ('user_input_id.test_entry', '=', False),
                             ('user_input_id.survey_id', '=', self.survey_id.id),                
@@ -51,7 +49,7 @@ class SurveyKpi(models.Model):
                          ]
                     )
                 else:
-                    survey_user_input_line_ids = self.env['survey.user_input_line'].search(
+                    user_input_line_ids = self.env['survey.user_input_line'].search(
                         [                            
                             ('user_input_id.test_entry', '=', False),
                             ('user_input_id.survey_id', '=', self.survey_id.id),                
@@ -61,6 +59,6 @@ class SurveyKpi(models.Model):
                          ]
                     )
                 # assign_survey_kpi_id
-                if survey_user_input_line_ids:
-                    for survey_user_input_line_id in survey_user_input_line_ids:
-                        survey_user_input_line_id.survey_kpi_id = survey_kpi_id.id                                                                                                       
+                if user_input_line_ids:
+                    for user_input_line_id in user_input_line_ids:
+                        user_input_line_id.survey_kpi_id = kpi_id.id
