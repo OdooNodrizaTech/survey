@@ -1,0 +1,1 @@
+Permite realizar redirecciones de survey_user_input

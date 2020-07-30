@@ -1,9 +1,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import api, exceptions, fields, models
+from odoo import api, fields, models
 from openerp.http import request
 
-import logging
-_logger = logging.getLogger(__name__)
 
 class SurveyUserinput(models.Model):
     _inherit = 'survey.user_input'
@@ -19,26 +17,26 @@ class SurveyUserinput(models.Model):
 
     @api.model
     def create(self, values):
-        return_object = super(SurveyUserinput, self).create(values)
-        #request
+        res = super(SurveyUserinput, self).create(values)
+        # request
         if request:
             lead_id_get = str(request.httprequest.args.get('lead_id'))
             if lead_id_get != "None":
-                return_object.lead_id = int(lead_id_get)
-                if return_object.lead_id:
-                    return_object.partner_id = return_object.lead_id.partner_id.id
-                    #user_id
-                    if return_object.lead_id.user_id:
-                        return_object.user_id = return_object.lead_id.user_id
-        #return
-        return return_object
+                res.lead_id = int(lead_id_get)
+                if res.lead_id:
+                    res.partner_id = res.res.partner_id.id
+                    # user_id
+                    if res.lead_id.user_id:
+                        res.user_id = res.lead_id.user_id
+        # return
+        return res
 
     @api.multi
     def write(self, vals):
         # stage date_done
         if vals.get('state') == 'done':
             for item in self:
-                if item.date_done == False:
+                if not item.date_done:
                     if item.lead_id:
                         if item.lead_id.user_id:
                             vals['user_id'] = item.lead_id.user_id.id
@@ -49,5 +47,5 @@ class SurveyUserinput(models.Model):
             context = self._context
             if 'uid' in context:
                 vals['user_id_done'] = context.get('uid')
-        #write
+        # write
         return super(SurveyUserinput, self).write(vals)

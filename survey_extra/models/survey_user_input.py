@@ -2,8 +2,6 @@
 
 from odoo import api, fields, models, _
 
-import logging
-_logger = logging.getLogger(__name__)
 
 class SurveyUserinput(models.Model):
     _inherit = 'survey.user_input'
@@ -26,7 +24,7 @@ class SurveyUserinput(models.Model):
         readonly=True
     )
     survey_url = fields.Char(
-        compute='_survey_url',
+        compute='_compute_survey_url',
         string="Url",
         readonly=True
     )
@@ -43,8 +41,9 @@ class SurveyUserinput(models.Model):
         readonly=True
     )
 
+    @api.multi
     @api.depends('survey_id')
-    def _survey_url(self):
+    def _compute_survey_url(self):
         for item in self:
             item.survey_url = '%s/survey/fill/%s/%%s' % (
                 self.env['ir.config_parameter'].sudo().get_param('web.base.url'),
@@ -59,7 +58,7 @@ class SurveyUserinput(models.Model):
             'error': _("You don't have a call answer to be assigned")
         }
         # survey_user_input_ids
-        survey_user_input_ids = self.env['survey.user_input'].sudo().search(
+        user_input_ids = self.env['survey.user_input'].sudo().search(
             [
                 ('type', '=', 'manually'),
                 ('survey_id.survey_type', '=', 'phone'),
@@ -69,9 +68,8 @@ class SurveyUserinput(models.Model):
             ],
             order='date_create asc'
         )
-        if survey_user_input_ids:
-            survey_user_input_id = survey_user_input_ids[0]
-            survey_user_input_id.user_id = self._uid
+        if user_input_ids:
+            user_input_ids[0].user_id = self._uid
 
             response['errors'] = False
         # return
@@ -80,7 +78,7 @@ class SurveyUserinput(models.Model):
     @api.multi
     def write(self, vals):
         # stage date_done
-        if vals.get('state') == 'done' and self.date_done == False:
+        if vals.get('state') == 'done' and not self.date_done:
             vals['date_done'] = fields.datetime.now()
             # user_id_done
             context = self._context

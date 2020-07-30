@@ -3,7 +3,8 @@
 {
     "name": "Survey Extra",
     "version": "12.0.1.0.0",
-    "author": "Odoo Nodriza Tech (ONT)",
+    "author": "Odoo Nodriza Tech (ONT), "
+              "Odoo Community Association (OCA)",
     "website": "https://nodrizatech.com/",
     "category": "Tools",
     "license": "AGPL-3",
@@ -19,5 +20,5 @@
         "views/survey_user_input_view.xml",
         "views/survey_survey_view.xml",
     ],
-    "installable": True,
+    "installable": True
 }

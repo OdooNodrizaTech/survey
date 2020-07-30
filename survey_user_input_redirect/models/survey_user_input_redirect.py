@@ -6,7 +6,7 @@ from odoo import fields, models
 class SurveyUserInputRedirect(models.Model):
     _name = 'survey.user_input.redirect'
     _description = 'Survey User Input Redirect'
-            
+
     token = fields.Char('Model')
     survey_id = fields.Many2one(
         comodel_name='survey.survey',

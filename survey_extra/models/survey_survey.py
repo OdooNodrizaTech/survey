@@ -1,8 +1,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import api, exceptions, fields, models
-from datetime import datetime
+from odoo import api, fields, models
 
-import pytz
 
 class SurveySurvey(models.Model):
     _inherit = 'survey.survey'
@@ -68,13 +66,13 @@ class SurveySurvey(models.Model):
         domain=[('model_id.model', '=', 'survey.survey')],
     )
 
-    @api.one
+    @api.multi
     def send_survey_satisfaction_phone(self):
         return super(SurveySurvey, self).send_survey_satisfaction_phone()
 
     @api.model
     def cron_send_surveys_satisfaction_phone(self):
-        survey_survey_ids = self.env['survey.survey'].search(
+        survey_ids = self.env['survey.survey'].search(
             [
                 ('active', '=', True),
                 ('survey_type_origin', '=', 'none'),
@@ -82,17 +80,17 @@ class SurveySurvey(models.Model):
                 ('survey_subtype', '=', 'satisfaction')
             ]
         )
-        if survey_survey_ids:
-            for survey_survey_id in survey_survey_ids:
-                survey_survey_id.send_survey_satisfaction_phone()
+        if survey_ids:
+            for survey_id in survey_ids:
+                survey_id.send_survey_satisfaction_phone()
 
-    @api.one
+    @api.multi
     def send_survey_satisfaction_recurrent_phone(self):
         return super(SurveySurvey, self).send_survey_satisfaction_recurrent_phone()
 
     @api.model
     def cron_send_surveys_satisfaction_recurrent_phone(self):
-        survey_survey_ids = self.env['survey.survey'].search(
+        survey_ids = self.env['survey.survey'].search(
             [
                 ('active', '=', True),
                 ('survey_type_origin', '=', 'none'),
@@ -100,13 +98,12 @@ class SurveySurvey(models.Model):
                 ('survey_subtype', '=', 'satisfaction_recurrent')
             ]
         )
-        if survey_survey_ids:
-            for survey_survey_id in survey_survey_ids:
-                survey_survey_id.send_survey_satisfaction_recurrent_phone()
-
+        if survey_ids:
+            for survey_id in survey_ids:
+                survey_id.send_survey_satisfaction_recurrent_phone()
                 # get_phone_survey_surveys (reuse in Arelux)
 
-    @api.one
+    @api.multi
     def get_phone_survey_surveys(self):
         return self.env['survey.survey'].search(
             [
@@ -117,20 +114,21 @@ class SurveySurvey(models.Model):
             ]
         )
 
-    @api.one
+    @api.multi
     def send_survey_real_satisfaction_mail(self):
         # Send by mail real
         return super(SurveySurvey, self).send_survey_real_satisfaction_mail()
 
-    @api.one
+    @api.multi
     def send_survey_satisfaction_mail(self, survey_survey_input_expired_ids):
         # change other source to mail if conditions
-        return super(SurveySurvey, self).send_survey_satisfaction_mail(survey_survey_input_expired_ids)
+        return super(SurveySurvey, self).send_survey_satisfaction_mail(
+            survey_survey_input_expired_ids
+        )
 
     @api.model
     def cron_send_surveys_satisfaction_mail(self):
-        current_date = datetime.now(pytz.timezone('Europe/Madrid'))
-        survey_survey_ids = self.env['survey.survey'].search(
+        survey_ids = self.env['survey.survey'].search(
             [
                 ('active', '=', True),
                 ('survey_type_origin', '=', 'none'),
@@ -139,12 +137,12 @@ class SurveySurvey(models.Model):
                 ('mail_template_id', '!=', False)
             ]
         )
-        if survey_survey_ids:
-            for survey_survey_id in survey_survey_ids:
+        if survey_ids:
+            for survey_id in survey_ids:
                 # send_survey_real_satisfaction_mail
-                survey_survey_id.send_survey_real_satisfaction_mail()
+                survey_id.send_survey_real_satisfaction_mail()
         # other origin
-        survey_survey_ids = self.env['survey.survey'].search(
+        survey_ids = self.env['survey.survey'].search(
             [
                 ('active', '=', True),
                 ('survey_type_origin', '=', 'phone'),
@@ -153,36 +151,40 @@ class SurveySurvey(models.Model):
                 ('mail_template_id', '!=', False)
             ]
         )
-        if survey_survey_ids:
-            for survey_survey_id in survey_survey_ids:
+        if survey_ids:
+            for survey_id in survey_ids:
                 # phone
-                survey_survey_ids_phone = survey_survey_id.get_phone_survey_surveys()
-                if survey_survey_ids_phone:
-                    survey_survey_id_phone = survey_survey_ids_phone[0]
+                survey_ids_phone = survey_id.get_phone_survey_surveys()
+                if survey_ids_phone:
                     # expired results
-                    survey_survey_input_expired_ids = self.env['survey.user_input'].search(
+                    user_input_ids = self.env['survey.user_input'].search(
                         [
                             ('state', '=', 'expired'),
-                            ('survey_id', '=', survey_survey_id_phone.id)
+                            ('survey_id', '=', survey_ids_phone[0].id)
                         ]
                     )
                     # send_survey_satisfaction_mail
-                    survey_survey_id.send_survey_satisfaction_mail(survey_survey_input_expired_ids)
+                    survey_id.send_survey_satisfaction_mail(user_input_ids)
 
-    @api.one
+    @api.multi
     def send_survey_real_satisfaction_recurrent_mail(self):
         # Send by mail real
-        return super(SurveySurvey, self).send_survey_real_satisfaction_recurrent_mail()
+        return super(
+            SurveySurvey, self
+        ).send_survey_real_satisfaction_recurrent_mail()
 
-    @api.one
+    @api.multi
     def send_survey_satisfaction_recurrent_mail(self, survey_survey_input_expired_ids):
         # change other source to mail if conditions
-        return super(SurveySurvey, self).send_survey_satisfaction_recurrent_mail(survey_survey_input_expired_ids)
+        return super(
+            SurveySurvey, self
+        ).send_survey_satisfaction_recurrent_mail(
+            survey_survey_input_expired_ids
+        )
 
     @api.model
     def cron_send_surveys_satisfaction_recurrent_mail(self):
-        current_date = datetime.now(pytz.timezone('Europe/Madrid'))
-        survey_survey_ids = self.env['survey.survey'].search(
+        survey_ids = self.env['survey.survey'].search(
             [
                 ('active', '=', True),
                 ('survey_type_origin', '=', 'none'),
@@ -191,12 +193,12 @@ class SurveySurvey(models.Model):
                 ('mail_template_id', '!=', False)
             ]
         )
-        if survey_survey_ids:
-            for survey_survey_id in survey_survey_ids:
+        if survey_ids:
+            for survey_id in survey_ids:
                 # send_survey_real_satisfaction_recurrent_mail
-                survey_survey_id.send_survey_real_satisfaction_recurrent_mail()
+                survey_id.send_survey_real_satisfaction_recurrent_mail()
         # other origin
-        survey_survey_ids = self.env['survey.survey'].search(
+        survey_ids = self.env['survey.survey'].search(
             [
                 ('active', '=', True),
                 ('survey_type_origin', '=', 'phone'),
@@ -205,18 +207,17 @@ class SurveySurvey(models.Model):
                 ('mail_template_id', '!=', False)
             ]
         )
-        if survey_survey_ids:
-            for survey_survey_id in survey_survey_ids:
+        if survey_ids:
+            for survey_id in survey_ids:
                 # phone
-                survey_survey_ids_phone = survey_survey_id.get_phone_survey_surveys()
-                if survey_survey_ids_phone:
-                    survey_survey_id_phone = survey_survey_ids_phone[0]
+                survey_ids_phone = survey_id.get_phone_survey_surveys()
+                if survey_ids_phone:
                     # expired results
-                    survey_survey_input_expired_ids = self.env['survey.user_input'].search(
+                    user_input_ids = self.env['survey.user_input'].search(
                         [
                             ('state', '=', 'expired'),
-                            ('survey_id', '=', survey_survey_id_phone.id)
+                            ('survey_id', '=', survey_ids_phone[0].id)
                         ]
                     )
                     # send_survey_satisfaction_recurrent_mail
-                    survey_survey_id.send_survey_satisfaction_recurrent_mail(survey_survey_input_expired_ids)
+                    survey_id.send_survey_satisfaction_recurrent_mail(user_input_ids)
