@@ -1,5 +1,5 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import api, exceptions, fields, models
+from odoo import api, fields, models
 from datetime import datetime
 
 import pytz
@@ -125,11 +125,12 @@ class SurveySurvey(models.Model):
     @api.multi
     def send_survey_satisfaction_mail(self, survey_survey_input_expired_ids):
         # change other source to mail if conditions
-        return super(SurveySurvey, self).send_survey_satisfaction_mail(survey_survey_input_expired_ids)
+        return super(SurveySurvey, self).send_survey_satisfaction_mail(
+            survey_survey_input_expired_ids
+        )
 
     @api.model
     def cron_send_surveys_satisfaction_mail(self):
-        current_date = datetime.now(pytz.timezone('Europe/Madrid'))
         survey_ids = self.env['survey.survey'].search(
             [
                 ('active', '=', True),
@@ -171,16 +172,21 @@ class SurveySurvey(models.Model):
     @api.multi
     def send_survey_real_satisfaction_recurrent_mail(self):
         # Send by mail real
-        return super(SurveySurvey, self).send_survey_real_satisfaction_recurrent_mail()
+        return super(
+            SurveySurvey, self
+        ).send_survey_real_satisfaction_recurrent_mail()
 
     @api.multi
     def send_survey_satisfaction_recurrent_mail(self, survey_survey_input_expired_ids):
         # change other source to mail if conditions
-        return super(SurveySurvey, self).send_survey_satisfaction_recurrent_mail(survey_survey_input_expired_ids)
+        return super(
+            SurveySurvey, self
+        ).send_survey_satisfaction_recurrent_mail(
+            survey_survey_input_expired_ids
+        )
 
     @api.model
     def cron_send_surveys_satisfaction_recurrent_mail(self):
-        current_date = datetime.now(pytz.timezone('Europe/Madrid'))
         survey_ids = self.env['survey.survey'].search(
             [
                 ('active', '=', True),

@@ -1,14 +1,8 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-import json
-import werkzeug
-from datetime import datetime
-from math import ceil
-
-from odoo import fields, http, SUPERUSER_ID
-from odoo.http import request
-from odoo.tools import ustr
+from odoo import http, request
 
 import odoo.addons.survey.controllers.main as main
+
 
 class Survey(main.Survey):
     def _check_bad_cases(self, survey, token=None):

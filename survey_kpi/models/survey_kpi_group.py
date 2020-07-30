@@ -6,7 +6,7 @@ from odoo import fields, models
 class SurveyKpiGroup(models.Model):
     _name = 'survey.kpi.group'
     _description = 'Survey Kpi Group'
-    
-    name = fields.Char(        
+
+    name = fields.Char(
         string='Name'
     )

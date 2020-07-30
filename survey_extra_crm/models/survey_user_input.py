@@ -1,5 +1,5 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import api, exceptions, fields, models
+from odoo import api, fields, models
 from openerp.http import request
 
 
@@ -24,7 +24,7 @@ class SurveyUserinput(models.Model):
             if lead_id_get != "None":
                 res.lead_id = int(lead_id_get)
                 if res.lead_id:
-                    res.partner_id = return_object.res.partner_id.id
+                    res.partner_id = res.res.partner_id.id
                     # user_id
                     if res.lead_id.user_id:
                         res.user_id = res.lead_id.user_id

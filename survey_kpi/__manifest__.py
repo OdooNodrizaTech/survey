@@ -16,6 +16,6 @@
         "data/ir_cron.xml",
         "views/survey_kpi_view.xml",
         "security/ir.model.access.csv",
-    ],        
+    ],
     "installable": True
 }
