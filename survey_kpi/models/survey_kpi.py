@@ -54,10 +54,10 @@ class SurveyKpi(models.Model):
                     survey_user_input_line_ids = self.env['survey.user_input_line'].search(
                         [                            
                             ('user_input_id.test_entry', '=', False),
-                            ('user_input_id.survey_id', '=', self.survey_id.id),                
+                            ('user_input_id.survey_id', '=', survey_kpi_id.survey_id.id),
                             ('user_input_id.state', '=', 'done'),
-                            ('question_id', '=', self.survey_question_id.id), 
-                            ('value_suggested_row', '=', self.survey_label_id.id),
+                            ('question_id', '=', survey_kpi_id.survey_question_id.id),
+                            ('value_suggested_row', '=', survey_kpi_id.survey_label_id.id),
                             ('survey_kpi_id', '=', False)
                          ]
                     )
@@ -65,9 +65,9 @@ class SurveyKpi(models.Model):
                     survey_user_input_line_ids = self.env['survey.user_input_line'].search(
                         [                            
                             ('user_input_id.test_entry', '=', False),
-                            ('user_input_id.survey_id', '=', self.survey_id.id),                
+                            ('user_input_id.survey_id', '=', survey_kpi_id.survey_id.id),
                             ('user_input_id.state', '=', 'done'),
-                            ('question_id', '=', self.survey_question_id.id), 
+                            ('question_id', '=', survey_kpi_id.survey_question_id.id),
                             ('survey_kpi_id', '=', False)
                          ]
                     )
